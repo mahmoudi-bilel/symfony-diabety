@@ -1,0 +1,81 @@
+{% extends 'patient/patient_dashboard.html.twig' %}
+
+{% block patient %}
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <div class="col-xl-9" style="position: relative;left: 180px;top: -200px;">
+        <div class="card bg-transparent border rounded-3">
+            <!-- Card header START -->
+            <div class="card-header bg-transparent border-bottom">
+                <h3 class="mb-0">publications</h3>
+            </div>
+            <div class="container">
+                {% for publication in publications %}
+                    {% if loop.index % 3 == 1 %}
+                        <div class="row g-4">
+                    {% endif %}
+                    <!-- Card item START -->
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card shadow h-100">
+                            <!-- Image -->
+                            <div class="card-body pb-0">
+                                <!-- Badge and favorite -->
+                                <div class="d-flex justify-content-between mb-2">
+                                    <a href="#" class="badge bg-success bg-opacity-10 text-success">Beginner</a>
+                                    <a href="{{ path('ssd', {'id': publication.id}) }}" title="Share on Facebook"><i class="fab fa-facebook"></i></a>
+                                </div>
+                                <!-- Title -->
+                                <h5 class="card-title fw-normal"><a href="#">{{ publication.description }}</a></h5>
+                                {% for commentaire in publication.commentaires %}
+                                    <p class="mb-2 text-truncate-2">{{ commentaire.textcommentaire }}</p>
+                                {% endfor %}
+                                <!-- Rating star -->
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
+                                    <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
+                                    <li class="list-inline-item ms-2 h6 fw-light mb-0"><i class="bi-arrow-through-heart"></i> {{ publication.likes }} likes</li>
+                                </ul>
+                            </div>
+                            <!-- Card footer -->
+                            <div class="card-footer pt-0 pb-3">
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <span class="h6 fw-light mb-0"><i class="far fa-clock text-danger me-2"></i>{{ publication.createdAt |date('Y-m-d H:i:s') }}</span>
+                                    <span class="h6 fw-light mb-0"><i class="bi-bag-heart"></i> {{ publication.dislikes }} dislikes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if loop.index % 3 == 0 or loop.last %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if publications|length > 0 %}
+                    <table>
+                        {# ... #}
+                    </table>
+                    <div class="d-flex justify-content-center">
+                        {{ knp_pagination_render(publications) }}
+                    </div>
+
+                {% else %}
+                    <p>No publications found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

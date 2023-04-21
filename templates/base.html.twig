@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Diabety{% endblock %}</title>
+        <!-- Favicon -->
+
+
+
+
+
+        <!-- Dark mode -->
+        <script>
+            const storedTheme = localStorage.getItem('theme')
+
+            const getPreferredTheme = () => {
+                if (storedTheme) {
+                    return storedTheme
+                }
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            }
+
+            const setTheme = function (theme) {
+                if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-bs-theme', 'dark')
+                } else {
+                    document.documentElement.setAttribute('data-bs-theme', theme)
+                }
+            }
+
+            setTheme(getPreferredTheme())
+
+            window.addEventListener('DOMContentLoaded', () => {
+                var el = document.querySelector('.theme-icon-active');
+                if(el != 'undefined' && el != null) {
+                    const showActiveTheme = theme => {
+                        const activeThemeIcon = document.querySelector('.theme-icon-active use')
+                        const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+                        const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+
+                        document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                            element.classList.remove('active')
+                        })
+
+                        btnToActive.classList.add('active')
+                        activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+                    }
+
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                        if (storedTheme !== 'light' || storedTheme !== 'dark') {
+                            setTheme(getPreferredTheme())
+                        }
+                    })
+
+                    showActiveTheme(getPreferredTheme())
+
+                    document.querySelectorAll('[data-bs-theme-value]')
+                        .forEach(toggle => {
+                            toggle.addEventListener('click', () => {
+                                const theme = toggle.getAttribute('data-bs-theme-value')
+                                localStorage.setItem('theme', theme)
+                                setTheme(theme)
+                                showActiveTheme(theme)
+                            })
+                        })
+
+                }
+            })
+
+        </script>
+
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+
+            <!-- Plugins CSS -->
+            <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/font-awesome/css/all.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/tiny-slider/tiny-slider.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/glightbox/css/glightbox.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/apexcharts/css/apexcharts.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/choices/css/choices.min.css') }}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/aos/aos.css') }}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+            <!-- Theme CSS -->
+            <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+
+
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+
+        <!-- Back to top -->
+        <div class="back-top"><i class="bi bi-arrow-up-short position-absolute top-50 start-50 translate-middle"></i></div>
+
+        <!-- Bootstrap JS -->
+        <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+        <!-- Vendors -->
+        <script src="{{ asset('assets/vendor/tiny-slider/tiny-slider.js') }}"></script>
+        <script src="{{ asset('assets/vendor/glightbox/js/glightbox.js') }}"></script>
+        <script src="{{ asset('assets/vendor/purecounterjs/dist/purecounter_vanilla.js') }}"></script>
+        <script src="{{ asset('assets/vendor/apexcharts/js/apexcharts.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/choices/js/choices.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
+
+        <!-- Template Functions -->
+        <script src="{{ asset('assets/js/functions.js') }}"></script>
+
+    </body>
+</html>

@@ -1,0 +1,9 @@
+{% extends 'patient/patient_dashboard.html.twig' %}
+
+{% block patient %}
+
+
+        {{ include('commentaire/_form.html.twig', {'button_label': 'Mise à jour', 'button_class': 'btn btn-primary'}) }}
+    <a href="{{ path('read_commentaire') }}" class="previous-link"><i class="fas fa-arrow-left"></i> Page précédente</a>
+
+{% endblock %}

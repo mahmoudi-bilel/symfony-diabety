@@ -1,0 +1,40 @@
+{% extends 'patient/patient_dashboard.html.twig' %}
+
+{% block patient %}
+
+    <div class="container">
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id:</th>
+                <td>{{ commentaire.id }}</td>
+            </tr>
+            <tr>
+                <th>Text commentaire:</th>
+                <td>{{ commentaire.textcommentaire }}</td>
+            </tr>
+            <tr>
+                <th>Visibilité:</th>
+                <td>{{ commentaire.visible }}</td>
+            </tr>
+            <tr>
+                <th>Date de création:</th>
+                <td>{{ commentaire.createdAt ? commentaire.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>date de modification:</th>
+                <td>{{ commentaire.updatedAt ? commentaire.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>la publication:</th>
+                <td>{{ commentaire.pub }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center">
+        {{ include('commentaire/delete_from.html.twig') }}
+    </div>
+
+{% endblock %}

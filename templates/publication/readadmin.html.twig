@@ -1,0 +1,102 @@
+{% extends'patient/admin_dashboard.html.twig' %}
+
+
+{% block title %}la liste de publication{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-bpGnzttDIn3q04ULngs6sCyy6xvU6XJFpMCEU6z0wLUSvBbCIyB6Jtp2Q63xW8tkvO9FzHEOFm2CwuZlSG8quw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" integrity="sha384-Cd9apKjVPZJ54hZprsh8BY41w5Kv7IZYkY5GG5DKKpEic9eS7nqG3H3V7a4jKd4V" crossorigin="anonymous">
+
+    <!-- JavaScript files -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-3CmYI/6XaXJXGuxKD9Oo6GZsKUeUeaPv90pqC+LOw1Q2j6LqG49JviTpNaMUFjDH" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha512-bfJZhXTtN0WQkIN+Rz0YQY+n5iLOIVWibmFpKm3q0ZvLmOWx5GG5zrKET7wYDzJvF8IgHt49eX63tlKjJI1vMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-3MXdEkAtJUk01XCrQZ00vnMBKjFhBx/KTfSgFusyNlO6DQjK4b4XFK4OgO4NLOsHsCgS6Ot+eCfJkaHf2D6j4A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js" integrity="sha384-ze6Bc32KmY2y2+LmFVbWgnjKEmjf0b3qDRv0E5G5DPHgNzV7DyL+nBrvV8WkHZtF" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/apexcharts/css/apexcharts.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/overlay-scrollbar/css/overlayscrollbars.min.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+{% endblock %}
+
+
+
+{% block admin %}
+    <div class="container my-4">
+        <div class="table-responsive border-0">
+            <div class="table-wrapper">
+                <table id="publicationsTable" class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="border-0">Identifiant</th>
+
+                        <th scope="col" class="border-0">Titre</th>
+                        <th scope="col" class="border-0">Description</th>
+                        <th scope="col" class="border-0">Date d'ajout</th>
+                        <th scope="col" class="border-0">Date de modification</th>
+                        <th scope="col" class="border-0 rounded-end">Email</th>
+                        <th scope="col" class="border-0 rounded-end">Numéro de téléphone</th>
+                        <th scope="col" class="border-0 rounded-end">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for p in publication %}
+                        <tr>
+
+                            <td>{{ p.id }}</td>
+                            <td>{{ p.titre}}</td>
+                            <td>{{ p.description }}</td>
+                            <td>{{ p.createdAt |date('Y-m-d H:i:s') }}</td>
+                            <td>{{ p.updatedAt is not null ? p.updatedAt|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                            <td>{{ p.email }}</td>
+                            <td>{{ p.numerodetel}}</td>
+                            <td>
+
+                                <a href="{{ path('delete_admin_publication',{ 'id': p.id }) }}" class="btn btn-danger-soft btn-round me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                {% if label == 'success' %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"> suivant </button>
+                    </div>
+                    <script>
+                        setTimeout(function(){
+                            $('.alert').alert('close');
+                        }, 3000);
+                    </script>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+{% endblock %}

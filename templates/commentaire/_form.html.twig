@@ -1,0 +1,30 @@
+
+{{ form_start(form, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+<div class="container">
+    <div class="form-group">
+        {{ form_label(form.pub, 'Publication', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.pub, {'attr': {'class': 'form-control', 'placeholder': 'Choix du publication...'}}) }}
+        {{ form_errors(form.pub, {'attr': {'class': 'invalid-feedback'}}) }}
+    </div>
+<div class="form-group">
+    {{ form_label(form.textcommentaire, 'Commentaire', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.textcommentaire, {'attr': {'class': 'form-control', 'placeholder': 'Saisissez votre commentaire .........'}}) }}
+    {{ form_errors(form.textcommentaire, {'attr': {'class': 'invalid-feedback'}}) }}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.visible, 'Visibilité', {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.visible, {'attr': {'class': 'form-control', 'placeholder': 'Choix de visibilité...'}}) }}
+    {{ form_errors(form.visible, {'attr': {'class': 'invalid-feedback'}}) }}
+</div>
+
+
+
+
+<button type="submit" class="btn btn-primary hover-color mb-3">{{ button_label|default('Enregistrer') }}</button>
+    <style>
+        .hover-color:hover {
+            background-color: black;
+        }
+    </style>
+{{ form_end(form) }}

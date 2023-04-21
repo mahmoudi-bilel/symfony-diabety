@@ -1,0 +1,17 @@
+{% extends 'patient/patient_dashboard.html.twig' %}
+
+{% block title %}New Commentaire{% endblock %}
+
+{% block patient %}
+
+
+
+    {{ include('commentaire/_form.html.twig') }}
+
+
+
+    {% if form_errors(form) %}
+<div class="alert alert-danger">{{ form_errors(form) }}</div>
+    {% endif %}
+
+{% endblock %}

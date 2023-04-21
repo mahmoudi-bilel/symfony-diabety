@@ -1,0 +1,45 @@
+{% extends 'patient/patient_dashboard.html.twig' %}
+
+{% block patient %}
+    <div class="container">
+        <div class="card card-body shadow p-4">
+            <h5 class="mb-0"> Ajouter publication </h5>
+
+            {{ form_start(f, {'attr': {'class': 'form', 'novalidate': 'novalidate'}}) }}
+            <div class="form-group">
+                {{ form_label(f.titre, 'Titre', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(f.titre, {'attr': {'class': 'form-control', 'placeholder': 'Saisissez le titre...'}}) }}
+                {{ form_errors(f.titre, {'attr': {'class': 'invalid-feedback'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(f.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(f.description, {'attr': {'class': 'form-control', 'placeholder': 'Saisissez une description...'}}) }}
+                {{ form_errors(f.description, {'attr': {'class': 'invalid-feedback'}}) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(f.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(f.email, {'attr': {'class': 'form-control', 'placeholder': 'Saisissez votre email...'}}) }}
+                {{ form_errors(f.email, {'attr': {'class': 'invalid-feedback'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(f.numerodetel, 'numéro de téléphone', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(f.numerodetel, {'attr': {'class': 'form-control', 'placeholder': 'Saisissez numéro de téléphone...'}}) }}
+                {{ form_errors(f.numerodetel, {'attr': {'class': 'invalid-feedback'}}) }}
+            </div>
+
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary hover-color mb-3">Ajouter</button>
+            </div>
+
+            {{ form_end(f) }}
+
+            <style>
+                .hover-color:hover {
+                    background-color: black;
+                }
+            </style>
+        </div>
+    </div>
+{% endblock %}
